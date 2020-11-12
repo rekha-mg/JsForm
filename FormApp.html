@@ -8,7 +8,7 @@
         <title>Js Form </title>
 
    <script type="text/javascript">
-
+// form validation
       function validation() {
 
           var first_name = document.getElementById('first_name').value;
@@ -41,7 +41,7 @@
               document.getElementById('address2_error_p').innerHTML="";
           }
       }
-
+// Adding  states depending on country
       function countryComboChange() {
           document.getElementById('stateCombo').options.length = 0; // Clear all previous data
           var sel = document.getElementById('stateCombo');
@@ -50,7 +50,7 @@
           sel.appendChild(opt);
 
           var x = document.getElementById("country").value;
-          alert(x);
+          
 
           switch(x){
               case '1' :  var India = ["Delhi","Karnataka"];
@@ -74,6 +74,8 @@
                 }
 
        }
+
+       // Adding city depending on states
        function stateComboChange(){
 
            document.getElementById('cityCombo').options.length = 0; // Clear all previous data
@@ -105,6 +107,11 @@
                    }
                    break;
            }
+       }
+
+       function cityComboChange(){
+           var x = document.getElementById("cityCombo").value;
+            alert(x);
        }
    </script>
 </head>
