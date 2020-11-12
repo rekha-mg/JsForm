@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
+        <title>Js Form </title>
+
+   <script type="text/javascript">
+
+      function validation() {
+
+          var first_name = document.getElementById('first_name').value;
+          var last_name = document.getElementById('last_name').value;
+          var address1 = document.getElementById('address1').value;
+          var address2 = document.getElementById('address2').value;
+
+          if (first_name.length < 4) {
+              document.getElementById('first_name_error_p').innerHTML="please enter first name longer than 4 char";
+              }
+              else{
+              document.getElementById('first_name_error_p').innerHTML="";
+          }
+          if (last_name.length < 4) {
+              document.getElementById('last_name_error_p').innerHTML="please enter last name longer than 4 char";
+                        }
+          else{
+              document.getElementById('last_name_error_p').innerHTML="";
+          }
+          if (address1.length =="") {
+              document.getElementById('address1_error_p').innerHTML="Can't be left blank address ! please enter proper address";
+          }
+          else{
+              document.getElementById('address1_error_p').innerHTML="";
+          }
+          if (address2.length =="") {
+              document.getElementById('address2_error_p').innerHTML="Can't be left blank address ! please enter proper address";
+          }
+          else{
+              document.getElementById('address2_error_p').innerHTML="";
+          }
+      }
+
+      function countryComboChange() {
+          document.getElementById('stateCombo').options.length = 0; // Clear all previous data
+          var sel = document.getElementById('stateCombo');
+          var opt = document.createElement('option');
+          opt.innerHTML = "-select state first-";
+          sel.appendChild(opt);
+
+          var x = document.getElementById("country").value;
+          alert(x);
+
+          switch(x){
+              case '1' :  var India = ["Delhi","Karnataka"];
+                        var sel = document.getElementById('stateCombo');
+                        for(var i = 0; i < India.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.innerHTML = India[i];
+                        opt.value = India[i];
+                        sel.appendChild(opt);
+                        }
+                        break;
+              case '2' :  var Japan = ["north japan","south japan"];
+                  var sel = document.getElementById('stateCombo');
+                  for(var i = 0; i < Japan.length; i++) {
+                      var opt = document.createElement('option');
+                      opt.innerHTML = Japan[i];
+                      opt.value = Japan[i];
+                      sel.appendChild(opt);
+                      }
+                        break;
+                }
+
+       }
+       function stateComboChange(){
+
+           document.getElementById('cityCombo').options.length = 0; // Clear all previous data
+           var sel = document.getElementById('cityCombo');
+           var opt = document.createElement('option');
+           opt.innerHTML = "-select city first-";
+           sel.appendChild(opt);
+
+           var x = document.getElementById("stateCombo").value;
+
+
+           switch(x){
+               case 'Delhi' :  var Delhi= [" North Delhi","South Delhi"];
+                   var sel = document.getElementById('cityCombo');
+                   for(var i = 0; i < Delhi.length; i++) {
+                       var opt = document.createElement('option');
+                       opt.innerHTML = Delhi[i];
+                       opt.value = Delhi[i];
+                       sel.appendChild(opt);
+                   }
+                   break;
+               case 'Karnataka' :  var Karnataka = ["Mysore","Bangalore"];
+                   var sel = document.getElementById('cityCombo');
+                   for(var i = 0; i < Karnataka.length; i++) {
+                       var opt = document.createElement('option');
+                       opt.innerHTML = Karnataka[i];
+                       opt.value = Karnataka[i];
+                       sel.appendChild(opt);
+                   }
+                   break;
+           }
+       }
+   </script>
+</head>
+<body>
+<div><form name=""register-form">
+     <label> First Name </label>
+     <input type="text" id="first_name" required onkeyup="validation()" ><br><p id="first_name_error_p"></p><br>
+     <label> Last Name </label>
+     <input type="text" id="last_name" requried onkeyup="validation()"><br><p id="last_name_error_p"></p><br>
+     <label> Address 1 </label>
+     <input type="text" id="address1" required  onkeyup="validation()"><br><p id="address1_error_p"></p><br>
+     <label> Address 2</label>
+     <input type="text" id="address2"  required onkeyup="validation()"> <br><p id="address2_error_p"></p><br>
+
+    <label for="country">Choose a country:</label>
+
+    <select name="country" id="country"  onchange="countryComboChange()">
+        <option value='-1' title='-select country first-'>-select country first-</option>
+        <option value="1">India</option>
+        <option value="2">Japan</option>
+        <option value="3">America</option>
+        <option value="4">Cannada</option>
+    </select><br><br><br>
+
+    <label for="country">Choose a State:</label>
+    <select id='stateCombo' onchange='stateComboChange();'>
+        <option value='-1' title='-select state first-'>-select state first-</option>
+    </select> <br><br><br>
+
+    <label for="country">Choose a city:</label>
+    <select id='cityCombo' onchange='cityComboChange();'>
+        <option value='-1' title='-select city first-'>-select city first-</option>
+    </select>
+    <br><br><br>
+     <input type="button" id="btn" value="Submit" >
+
+
+
+
+
+
+</form>
+</div>
+</body>
+</html>
