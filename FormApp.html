@@ -9,50 +9,84 @@
 
    <script type="text/javascript">
 // form validation
-      function validation() {
-
+      function validate_firstname() {
           var first_name = document.getElementById('first_name').value;
-          var last_name = document.getElementById('last_name').value;
-          var address1 = document.getElementById('address1').value;
-          var address2 = document.getElementById('address2').value;
-
           if (first_name.length < 4) {
               document.getElementById('first_name_error_p').innerHTML="please enter first name longer than 4 char";
-              }
-              else{
+          }
+          else{
               document.getElementById('first_name_error_p').innerHTML="";
           }
+      }
+      function validate_lastname() {
+          var last_name = document.getElementById('last_name').value;
           if (last_name.length < 4) {
               document.getElementById('last_name_error_p').innerHTML="please enter last name longer than 4 char";
-                        }
+          }
           else{
               document.getElementById('last_name_error_p').innerHTML="";
           }
-          if (address1.length =="") {
+      }
+      function validate_address1() {
+          var address1 = document.getElementById('address1').value;
+          if (address1.length <4) {
               document.getElementById('address1_error_p').innerHTML="Can't be left blank address ! please enter proper address";
           }
           else{
               document.getElementById('address1_error_p').innerHTML="";
           }
-          if (address2.length =="") {
-              document.getElementById('address2_error_p').innerHTML="Can't be left blank address ! please enter proper address";
+      }
+      function validate_address2() {
+          var address2 = document.getElementById('address2').value;
+          if (address2.length <4) {
+              document.getElementById('address2_error_p').innerHTML = "Can't be left blank address ! please enter proper address";
           }
-          else{
-              document.getElementById('address2_error_p').innerHTML="";
+          else {
+              document.getElementById('address2_error_p').innerHTML = "";
           }
       }
+
+
+function validate_combostate() {
+    const state_combo = document.getElementById('stateCombo');
+    const city_combo = document.getElementById('cityCombo');
+
+    state_combo.disabled=true;
+
+    city_combo.disabled=true;
+}
+
+
+
+
+
+
+
+
+
 // Adding  states depending on country
       function countryComboChange() {
+
+          if(document.getElementById("country").value=="") {
+              document.getElementById('country_combo_error').innerHTML = "Select the country";
+              validate_combostate();
+          }
+          else{
+              document.getElementById('country_combo_error').innerHTML="";
+              const state_combo = document.getElementById('stateCombo');
+              state_combo.disabled=false;
+          }
+
           document.getElementById('stateCombo').options.length = 0; // Clear all previous data
           var sel = document.getElementById('stateCombo');
           var opt = document.createElement('option');
           opt.innerHTML = "-select state first-";
           sel.appendChild(opt);
 
-          var x = document.getElementById("country").value;
-          
+          var country_code = document.getElementById("country").value;
 
-          switch(x){
+
+          switch(country_code){
               case '1' :  var India = ["Delhi","Karnataka"];
                         var sel = document.getElementById('stateCombo');
                         for(var i = 0; i < India.length; i++) {
@@ -78,16 +112,26 @@
        // Adding city depending on states
        function stateComboChange(){
 
+           if(document.getElementById("stateCombo").value=="") {
+               document.getElementById('state_combo_error').innerHTML = "Select the state";
+               const city_combo = document.getElementById('cityCombo');
+               city_combo.disabled=true;
+           }
+           else{
+               document.getElementById('state_combo_error').innerHTML = "";
+               const city_combo = document.getElementById('cityCombo');
+               city_combo.disabled=false;
+           }
            document.getElementById('cityCombo').options.length = 0; // Clear all previous data
            var sel = document.getElementById('cityCombo');
            var opt = document.createElement('option');
            opt.innerHTML = "-select city first-";
            sel.appendChild(opt);
 
-           var x = document.getElementById("stateCombo").value;
+           var state_name = document.getElementById("stateCombo").value;
 
 
-           switch(x){
+           switch(state_name){
                case 'Delhi' :  var Delhi= [" North Delhi","South Delhi"];
                    var sel = document.getElementById('cityCombo');
                    for(var i = 0; i < Delhi.length; i++) {
@@ -110,48 +154,49 @@
        }
 
        function cityComboChange(){
-           var x = document.getElementById("cityCombo").value;
-            alert(x);
+           if(document.getElementById("cityCombo").value=="") {
+               document.getElementById('city_combo_error').innerHTML = "Select the city";
+           }
+           else{
+               document.getElementById('city_combo_error').innerHTML="";
+           }
+           var city_name = document.getElementById("cityCombo").value;
+            alert(city_name);
        }
    </script>
 </head>
-<body>
-<div><form name=""register-form">
+<body onload="validate_combostate()">
+<div><form name=register-form" >
      <label> First Name </label>
-     <input type="text" id="first_name" required onkeyup="validation()" ><br><p id="first_name_error_p"></p><br>
+     <input type="text" id="first_name" required onkeyup="validate_firstname()" ><br><p id="first_name_error_p"></p><br>
      <label> Last Name </label>
-     <input type="text" id="last_name" requried onkeyup="validation()"><br><p id="last_name_error_p"></p><br>
+     <input type="text" id="last_name" requried onkeyup="validate_lastname()"><br><p id="last_name_error_p"></p><br>
      <label> Address 1 </label>
-     <input type="text" id="address1" required  onkeyup="validation()"><br><p id="address1_error_p"></p><br>
+     <input type="text" id="address1" required  onkeyup="validate_address1()"><br><p id="address1_error_p"></p><br>
      <label> Address 2</label>
-     <input type="text" id="address2"  required onkeyup="validation()"> <br><p id="address2_error_p"></p><br>
+     <input type="text" id="address2"  required onkeyup="validate_address2()"> <br><p id="address2_error_p"></p><br>
 
     <label for="country">Choose a country:</label>
 
-    <select name="country" id="country"  onchange="countryComboChange()">
-        <option value='-1' title='-select country first-'>-select country first-</option>
+    <select name="country" id="country"  onchange="countryComboChange()" >
+        <option value="" title='-select country first-'>-select country first-</option>
         <option value="1">India</option>
         <option value="2">Japan</option>
         <option value="3">America</option>
         <option value="4">Cannada</option>
-    </select><br><br><br>
+    </select><br><br><p id="country_combo_error"></p><br><br><br>
 
-    <label for="country">Choose a State:</label>
+    <label for="state">Choose a State:</label>
     <select id='stateCombo' onchange='stateComboChange();'>
-        <option value='-1' title='-select state first-'>-select state first-</option>
-    </select> <br><br><br>
+        <option value="" title='-select state first-'>-select state first-</option>
+    </select> <br><p id="state_combo_error"></p><br><br><br>
 
-    <label for="country">Choose a city:</label>
+    <label for="city">Choose a city:</label>
     <select id='cityCombo' onchange='cityComboChange();'>
-        <option value='-1' title='-select city first-'>-select city first-</option>
+        <option value="" title='-select city first-'>-select city first-</option>
     </select>
-    <br><br><br>
+    <br><p id="city_combo_error"></p><br><br><br>
      <input type="button" id="btn" value="Submit" >
-
-
-
-
-
 
 </form>
 </div>
